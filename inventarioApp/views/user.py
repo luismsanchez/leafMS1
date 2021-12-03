@@ -16,19 +16,3 @@ class UserRetrieve(views.APIView):
 
 
 
-class UserClienteCreate(views.APIView):
-    def post(self, request):
-        serializer = UserCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            user = User.objects.create_user(username=serializer.validated_data['username'], password=serializer.validated_data['password'])
-            Cliente.objects.create(user=user, nombre=request.data['nombre'], direccion=request.data['direccion'])
-            return Response(status=status.HTTP_201_CREATED)
-
-
-class UserProveedorCreate(views.APIView):
-    def post(self, request):
-        serializer = UserCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            user = User.objects.create_user(username=serializer.validated_data['username'], password=serializer.validated_data['password'])
-            Proveedor.objects.create(user=user, nombre=request.data['nombre'], direccion=request.data['direccion'], nit=request.data['nit'])
-            return Response(status=status.HTTP_201_CREATED)
